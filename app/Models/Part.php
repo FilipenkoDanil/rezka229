@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Part extends Model
 {
     use HasFactory;
+
+    public function videos()
+    {
+        return $this->belongsToMany(Video::class)->orderByDesc('date');
+    }
 }

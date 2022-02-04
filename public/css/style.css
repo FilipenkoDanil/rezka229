@@ -106,18 +106,18 @@ i {
     max-width: 600px;
     position: absolute;
     z-index: 100;
-    
+
     padding-top: 10px;
     padding-left: 20px;
     padding-right: 20px;
     line-height: 40px;
-    
+
 }
 
 .navitems li {
     padding-right: 25px;
     width: 90px;
-    
+
 }
 
 .navitems li a {
@@ -223,7 +223,7 @@ i {
     font-size: 14px;
     font-weight: bold;
     color: #2e859e;
-    
+
 }
 
 .item-footer p {
@@ -478,7 +478,7 @@ video {
 
 .partcontainer {
     margin-top: 30px;
-    
+
 }
 
 .partcontainer-item {
@@ -603,6 +603,12 @@ textarea:focus {
 
 .reply-b {
     margin-left: 70px;
+}
+
+.comment {
+    height: 60px;
+    border-radius: 5px;
+    margin-bottom: 5px;
 }
 
 .comment:nth-child(odd) {

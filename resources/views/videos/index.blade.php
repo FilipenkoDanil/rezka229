@@ -12,138 +12,19 @@
     </div>
 
     <div class="itemcontainer">
-        <div class="main-item">
-            <a href="#">
-                <div class="item-header">
-                    <img src="https://static.hdrezka.ac/i/2021/11/19/m8295cbcdb817hm88y85d.jpg">
-                </div>
-                <div class="item-footer">
-                    <span>Название</span>
-                    <p>2021, США, Фантастика</p>
-                </div>
-            </a>
-        </div>
-
-        <div class="main-item">
-            <a href="http://127.0.0.1:5500/film.html">
-                <div class="item-header">
-                    <img src="https://image.tmdb.org/t/p/original/nzeAClk7gFTw7FN0ubJNKw7JydI.jpg">
-                </div>
-                <div class="item-footer">
-                    <span>Самый сильный в мире медведь</span>
-                    <p>2021, США, Фантастика</p>
-                </div>
-            </a>
-        </div>
-
-        <div class="main-item">
-            <a href="http://127.0.0.1:5500/film.html">
-                <div class="item-header">
-                    <img src="https://image.tmdb.org/t/p/original/nzeAClk7gFTw7FN0ubJNKw7JydI.jpg">
-                </div>
-                <div class="item-footer">
-                    <span>Самый сильный в мире медведь</span>
-                    <p>2021, США, Фантастика</p>
-                </div>
-            </a>
-        </div>
-
-        <div class="main-item">
-            <a href="http://127.0.0.1:5500/film.html">
-                <div class="item-header">
-                    <img src="https://image.tmdb.org/t/p/original/nzeAClk7gFTw7FN0ubJNKw7JydI.jpg">
-                </div>
-                <div class="item-footer">
-                    <span>Самый сильный в мире медведь</span>
-                    <p>2021, США, Фантастика</p>
-                </div>
-            </a>
-        </div>
-
-        <div class="main-item">
-            <a href="http://127.0.0.1:5500/film.html">
-                <div class="item-header">
-                    <img src="https://image.tmdb.org/t/p/original/nzeAClk7gFTw7FN0ubJNKw7JydI.jpg">
-                </div>
-                <div class="item-footer">
-                    <span>Самый сильный в мире медведь</span>
-                    <p>2021, США, Фантастика</p>
-                </div>
-            </a>
-        </div>
-
-        <div class="main-item">
-            <a href="http://127.0.0.1:5500/film.html">
-                <div class="item-header">
-                    <img src="https://image.tmdb.org/t/p/original/nzeAClk7gFTw7FN0ubJNKw7JydI.jpg">
-                </div>
-                <div class="item-footer">
-                    <span>Самый сильный в мире медведь</span>
-                    <p>2021, США, Фантастика</p>
-                </div>
-            </a>
-        </div>
-
-        <div class="main-item">
-            <a href="http://127.0.0.1:5500/film.html">
-                <div class="item-header">
-                    <img src="https://image.tmdb.org/t/p/original/nzeAClk7gFTw7FN0ubJNKw7JydI.jpg">
-                </div>
-                <div class="item-footer">
-                    <span>Самый сильный в мире медведь</span>
-                    <p>2021, США, Фантастика</p>
-                </div>
-            </a>
-        </div>
-
-        <div class="main-item">
-            <a href="#">
-                <div class="item-header">
-                    <img src="https://image.tmdb.org/t/p/original/nzeAClk7gFTw7FN0ubJNKw7JydI.jpg">
-                </div>
-                <div class="item-footer">
-                    <span>Самый сильный в мире медведь</span>
-                    <p>2021, США, Фантастика</p>
-                </div>
-            </a>
-        </div>
-
-        <div class="main-item">
-            <a href="http://127.0.0.1:5500/film.html">
-                <div class="item-header">
-                    <img src="https://image.tmdb.org/t/p/original/nzeAClk7gFTw7FN0ubJNKw7JydI.jpg">
-                </div>
-                <div class="item-footer">
-                    <span>Самый сильный в мире медведь</span>
-                    <p>2021, США, Фантастика</p>
-                </div>
-            </a>
-        </div>
-
-        <div class="main-item">
-            <a href="http://127.0.0.1:5500/film.html">
-                <div class="item-header">
-                    <img src="https://image.tmdb.org/t/p/original/nzeAClk7gFTw7FN0ubJNKw7JydI.jpg">
-                </div>
-                <div class="item-footer">
-                    <span>Самый сильный в мире медведь</span>
-                    <p>2021, США, Фантастика</p>
-                </div>
-            </a>
-        </div>
-
-        <div class="main-item">
-            <a href="http://127.0.0.1:5500/film.html">
-                <div class="item-header">
-                    <img src="https://image.tmdb.org/t/p/original/nzeAClk7gFTw7FN0ubJNKw7JydI.jpg">
-                </div>
-                <div class="item-footer">
-                    <span>Самый сильный в мире медведь</span>
-                    <p>2021, США, Фантастика</p>
-                </div>
-            </a>
-        </div>
-
+        @foreach($videos as $video)
+            <div class="main-item">
+                <a href="{{ route('watch', [$video->type->slug, $video->slug]) }}">
+                    <div class="item-header">
+                        <img src="{{ $video->poster }}">
+                    </div>
+                    <div class="item-footer">
+                        <span>{{ $video->title_ru }}</span>
+                        <p>{{ $video->year->year }}, {{ $video->countries->first()->country }}, {{ $video->genres->first()->genre }} </p>
+                    </div>
+                </a>
+            </div>
+        @endforeach
     </div>
 
     <div class="pagination">

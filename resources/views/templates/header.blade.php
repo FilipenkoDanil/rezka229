@@ -1,7 +1,7 @@
 <header>
     <div class="header-topcontainer">
         <div class="logo">
-            <h2><a href="#">Sitename</a></h2>
+            <h2><a href="{{ route('index') }}">Sitename</a></h2>
         </div>
         <div class="sign">
             <a href="#">Вход</a>
@@ -14,7 +14,7 @@
             <nav>
                 <ul>
                     <li>
-                        <a href="#">Фильмы<img src="img/arrow.svg"></a>
+                        <a href="#">Фильмы<img src="{{ asset('/img/arrow.svg') }}"></a>
                         <div class="navitems">
                             <ul>
                                 <li><a href="#">Военные</a></li>
@@ -30,7 +30,7 @@
                         </div>
                     </li>
                     <li>
-                        <a href="#">Сериалы<img src="img/arrow.svg"></a>
+                        <a href="#">Сериалы<img src={{ asset('/img/arrow.svg') }}></a>
                         <div class="navitems">
                             <ul>
                                 <li><a href="#">Военные</a></li>
@@ -45,7 +45,7 @@
                         </div>
                     </li>
                     <li>
-                        <a href="#">Аниме <img src="img/arrow.svg"></a>
+                        <a href="#">Аниме <img src={{ asset('/img/arrow.svg') }}></a>
                         <div class="navitems">
                             <ul>
                                 <li><a href="#">ТАКИЙСКИЙ ГУЛЬ</a></li>

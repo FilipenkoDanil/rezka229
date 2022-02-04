@@ -2,18 +2,36 @@
 
     namespace App\Http\Controllers;
 
+    use App\Models\Comment;
+    use App\Models\Video;
     use Illuminate\Http\Request;
+    use Illuminate\Support\Facades\Auth;
+    use Illuminate\Support\Facades\DB;
 
     class VideoController extends Controller
     {
         public function index()
         {
-            return 0;//главная
+            $videos = Video::with('type', 'year')->get();
+            return view('videos.index', compact('videos'));
         }
 
-        public function watch()
+        public function watch($type, $slug)
         {
-            return 0;//страница с видео
+            $video = Video::with('parts', 'comments.user', 'year', 'type')->where('slug', $slug)->first();
+            $recVideos = Video::with('year', 'type', 'genres')->where('type_id', $video->type_id)->inRandomOrder()->take(2)->get();//take 5
+
+            return view('videos.watch', compact(['video', 'recVideos']));
         }
 
+        public function addcomment(Request $request)
+        {
+            Comment::create([
+                'user_id' => Auth::id(),
+                'video_id' => $request->video_id,
+                'comment' => $request->comment
+            ]);
+
+            return redirect()->back();
+        }
     }
