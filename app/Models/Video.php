@@ -40,4 +40,9 @@ class Video extends Model
     {
         return $this->belongsToMany(Part::class);
     }
+
+    public function voices()
+    {
+        return $this->belongsToMany(Voice::class)->withPivot('id', 'ser_number', 'path');
+    }
 }

@@ -3,6 +3,7 @@
 @section('title', 'Index')
 
 @section('content')
+
     <div class="main-filter">
         <ul>
             <li class="active"><a href="#">Последние поступления</a></li>

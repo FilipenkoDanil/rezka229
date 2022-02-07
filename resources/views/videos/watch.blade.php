@@ -20,7 +20,8 @@
                 <table>
                     <tr>
                         <td class="firstcol">Рейтинги:</td>
-                        <td><span class="rates"><a href="https://www.imdb.com/title/{{ $video->imdb_id }}/" target="_blank">IMDb</a>:</span> <b>{{ $video->imdb_rating }}</b>
+                        <td><span class="rates"><a href="https://www.imdb.com/title/{{ $video->imdb_id }}/"
+                                                   target="_blank">IMDb</a>:</span> <b>{{ $video->imdb_rating }}</b>
                             <em>({{ $video->imdb_votes }})</em></td>
                     </tr>
                     <tr>
@@ -71,18 +72,21 @@
             <div class="partcontainer">
                 <h2>Все части «{{ $video->parts->first()->title }}»:</h2>
                 @foreach($video->parts->first()->videos as $vid)
-                    <div class="partcontainer-item" data-url="{{ route('watch', [$vid->type->slug, $vid->slug]) }}" onclick="parts(this)">
+                    <div class="partcontainer-item" data-url="{{ route('watch', [$vid->type->slug, $vid->slug]) }}"
+                         onclick="parts(this)">
                         <div class="td num">{{ $loop->iteration }}</div>
-                        <div class="td title"><a href="{{ route('watch', [$vid->type->slug, $vid->slug]) }}">{{ $vid->title_ru }}</a></div>
+                        <div class="td title"><a
+                                href="{{ route('watch', [$vid->type->slug, $vid->slug]) }}">{{ $vid->title_ru }}</a>
+                        </div>
                         <div class="td year">{{ $vid->year->year }} год</div>
                         <div class="td raiting">
                             <i class="
                         @if($vid->imdb_rating >= 7)
-                            good
+                                good
                         @elseif($vid->imdb_rating < 7 && $vid->imdb_rating > 5.5)
-                            ok
+                                ok
                         @else
-                            bad
+                                bad
                         @endif">{{ $vid->imdb_rating }}</i></div>
                     </div>
                 @endforeach
@@ -100,7 +104,8 @@
                             </div>
                             <div class="item-footer">
                                 <span>{{ $recVideo->title_ru }}</span>
-                                <p>{{ $recVideo->year->year }}, {{ $recVideo->countries->first()->country }}, {{ $recVideo->genres->first()->genre }}</p>
+                                <p>{{ $recVideo->year->year }}, {{ $recVideo->countries->first()->country }}
+                                    , {{ $recVideo->genres->first()->genre }}</p>
                             </div>
                         </a>
                     </div>
@@ -113,7 +118,7 @@
         </div>
 
         <div class="comment-form">
-            <form method="POST" action="{{ route('addcomment') }}">
+            <form method="POST" action="{{ route('addComment') }}">
                 @csrf
                 <textarea placeholder="Оставить отзыв..." class="addcoment" name="comment"></textarea>
                 <input type="hidden" name="video_id" value="{{ $video->id }}">
@@ -135,7 +140,8 @@
                             <span
                                 class="date">оставлен {{ \Jenssegers\Date\Date::parse($comment->created_at)->format('j F Y') . ' в ' . \Jenssegers\Date\Date::parse($comment->created_at)->format('H') . ':' . \Jenssegers\Date\Date::parse($comment->created_at)->format('i')}}</span>
                         </div>
-                        <span><img src="{{ asset('img/horn.svg') }}" class="report" title="Пожаловаться на комментарий"></span>
+                        <span><img src="{{ asset('img/horn.svg') }}" class="report" title="Пожаловаться на комментарий"
+                                   onclick="report({{ $comment->id }})"></span>
                     </div>
                     <div class="comment-text">
                         {{ $comment->comment }}
@@ -145,12 +151,46 @@
         </div>
     </div>
 
+    <div class="modal" id="modal">
+        <span class="modal-close" onclick="modalShow(false)" title="Закрыть"></span>
+        <div class="report-reason">
+            <form action="{{ route('reportComment') }}" id="reportForm" method="POST">
+                @csrf
+                <input type="hidden" name="comment_id" value="">
+                @foreach($reasonsReport as $reason)
+                    <div class="form_radio_btn">
+                        <input id="radio-{{ $reason->id }}" type="radio" name="reason_id" value="{{ $reason->id }}"
+                               onclick="sendForm()">
+                        <label for="radio-{{ $reason->id }}">{{ $reason->reason }}</label>
+                    </div>
+                @endforeach
+            </form>
+        </div>
+    </div>
 
     <script>
         function parts(el)
         {
             var url = el.getAttribute('data-url');
             window.location.assign(url);
+        }
+
+        function report(commentId)
+        {
+            modalShow(true);
+            let reportForm = document.forms.reportForm;
+            reportForm.elements.comment_id.value = commentId;
+        }
+
+        function modalShow(isShow)
+        {
+            document.getElementById('modal').style.opacity = isShow ? 1 : 0;
+            document.getElementById('modal').style.pointerEvents = isShow ? 'auto' : 'none';
+        }
+
+        function sendForm()
+        {
+            document.forms.reportForm.submit();
         }
     </script>
 @endsection

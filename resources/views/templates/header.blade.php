@@ -3,55 +3,34 @@
         <div class="logo">
             <h2><a href="{{ route('index') }}">Sitename</a></h2>
         </div>
-        <div class="sign">
-            <a href="#">Вход</a>
-            <a href="#">Регистрация</a>
-        </div>
+        @guest
+            <div class="sign">
+                <a href="{{ route('login') }}">Вход</a>
+                <a href="{{ route('register') }}">Регистрация</a>
+            </div>
+        @elseauth
+            <div class="sign">
+                <a href="#">Выйти</a>
+            </div>
+        @endguest
     </div>
 
     <div class="header-navcontainer">
         <div class="header-nav">
             <nav>
                 <ul>
-                    <li>
-                        <a href="#">Фильмы<img src="{{ asset('/img/arrow.svg') }}"></a>
-                        <div class="navitems">
-                            <ul>
-                                <li><a href="#">Военные</a></li>
-                                <li><a href="#">Ужасы</a></li>
-                                <li><a href="#">Комедия</a></li>
-                                <li><a href="#">Арт-хаус</a></li>
-                                <li><a href="#">Криминал</a></li>
-                                <li><a href="#">Приключения</a></li>
-                                <li><a href="#">Вестерны</a></li>
-                                <li><a href="#">Телепередачи</a></li>
-                                <li><a href="#">Биографические</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="#">Сериалы<img src={{ asset('/img/arrow.svg') }}></a>
-                        <div class="navitems">
-                            <ul>
-                                <li><a href="#">Военные</a></li>
-                                <li><a href="#">Ужасы</a></li>
-                                <li><a href="#">Ужасы</a></li>
-                                <li><a href="#">Ужасы</a></li>
-                                <li><a href="#">Ужасы</a></li>
-                                <li><a href="#">Ужасы</a></li>
-                                <li><a href="#">Комедия</a></li>
-                                <li><a href="#">Семейные</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="#">Аниме <img src={{ asset('/img/arrow.svg') }}></a>
-                        <div class="navitems">
-                            <ul>
-                                <li><a href="#">ТАКИЙСКИЙ ГУЛЬ</a></li>
-                            </ul>
-                        </div>
-                    </li>
+                    @foreach($typesHeader as $type)
+                        <li>
+                            <a href="{{ route('videosByType', $type->slug) }}">{{ $type->type_plural }}<img src="{{ asset('img/arrow.svg') }}"></a>
+                            <div class="navitems">
+                                <ul>
+                                    @foreach($type->genres->sortByDesc('genre') as $genreVideo)
+                                        <li><a href="{{ route('videosByGenre', [$type->slug, $genreVideo->genre->slug])  }}">{{ $genreVideo->genre->genre }}</a></li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </li>
+                    @endforeach
                 </ul>
             </nav>
         </div>

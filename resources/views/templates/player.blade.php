@@ -1,23 +1,36 @@
 <div class="player">
     <div class="player-header">
-        {{ $video->title_ru }} - смотрите бесплатно!
+        {{ $video->title_ru }} - смотрите все серии бесплатно!
     </div>
     <div class="player-controls ">
-        <p>В русской озвучке от:</p>
-        <button class="player-controls-button selected">Многоголосый закадровый</button>
-        <button class="player-controls-button">Дубляж</button>
-        <button class="player-controls-button">Anilibria</button>
-
-        <video src="/video/anime1.mp4" controls
-               poster="https://image.tmdb.org/t/p/original/yOarY3Yo0NMkuTuft87M5oAZa3C.jpg"></video>
+        @if(count($video->voices) > 1)
+            <p>В русской озвучке от:</p>
+            <div id="voices">
+                @foreach($video->voices->groupBy('voice') as $voice)
+                    <button class="player-controls-button @if($loop->first)selected @endif"
+                            onclick="voice(this)"
+                            data-voice="{{ str_slug($voice->first()->voice) }}">{{ $voice->first()->voice }}</button>
+                @endforeach
+            </div>
+        @endif
+        <video controls type="video/mp4">
+        </video>
         <div id="series">
-            <button onclick="select('/video/anime1.mp4', this)" class="player-controls-button selected">Серия
-                1
-            </button>
+            @foreach($video->voices->groupBy('voice') as $voice)
+                <div id="{{ str_slug($voice->first()->voice) }}" @if(!$loop->first) style="display: none" @endif>
+                    @foreach($voice as $v)
+                        <button onclick="select('{{ route('stream', $v->pivot->id) }}', this)"
+                                class="player-controls-button ">Серия {{ $v->pivot->ser_number }}
+                        </button>
+                    @endforeach
+                </div>
+            @endforeach
+
         </div>
 
     </div>
 </div>
+
 <script>
     function select(seriesId, obj)
     {
@@ -37,12 +50,12 @@
     {
         let voiceList = document.getElementById('voices');
         let currentVoice = voiceList.getElementsByClassName('selected');
-        let beforeVoice = currentVoice[0].innerText;
+        let beforeVoice = currentVoice[0].getAttribute('data-voice');
         currentVoice[0].classList.remove('selected');
         obj.classList.add('selected');
 
         document.getElementById(beforeVoice).style.display = 'none';
-        document.getElementById(obj.innerHTML).style.display = 'block';
-        document.getElementById(obj.innerHTML).firstElementChild.click();
+        document.getElementById(obj.getAttribute('data-voice')).style.display = 'block';
+        document.getElementById(obj.getAttribute('data-voice')).firstElementChild.click();
     }
 </script>
