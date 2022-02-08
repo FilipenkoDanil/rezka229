@@ -799,3 +799,60 @@ textarea:focus {
 .modal-close:after {
     content: 'X';
 }
+
+/* */
+
+.auth {
+    width: 300px;
+    margin: 0 auto;
+    background-color: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 0 6px rgba(0,0,0,0.5); /* Параметры тени */
+}
+
+.login-form {
+    width: 60%;
+    margin: 0 auto;
+    padding: 10px 0;
+}
+
+.auth label {
+    font-weight: bold;
+    font-size: 16px;
+
+}
+
+.auth input {
+    padding: 10px 5px;
+    border: 1px solid gray;
+    border-radius: 3px;
+    margin: 5px 0;
+}
+
+.auth input:focus {
+    outline-color: #2e859e;
+}
+
+.invalid-feedback {
+    color: red;
+    font-size: 13px;
+}
+
+.auth button {
+    width: 100%;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: #3db2f3;
+    color: white;
+    cursor: pointer;
+}
+
+.auth button:hover {
+    background-color: #39a0d4;
+}
+
+.auth button:active {
+    background-color: #358db5;
+}
