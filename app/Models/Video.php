@@ -45,4 +45,18 @@ class Video extends Model
     {
         return $this->belongsToMany(Voice::class)->withPivot('id', 'ser_number', 'path');
     }
+
+    public function scopeOfType($query, $type)
+    {
+        return $query->whereHas('type', function ($q) use ($type) {
+            return $q->where('slug', '=', $type);
+        });
+    }
+
+    public function scopeOfGenre($query, $genre)
+    {
+        return $query->whereHas('genres', function ($q) use ($genre) {
+            return $q->where('slug', '=', $genre);
+        });
+    }
 }
