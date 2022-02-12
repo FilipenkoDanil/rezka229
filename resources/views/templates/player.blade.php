@@ -1,6 +1,6 @@
 <div class="player">
     <div class="player-header">
-        {{ $video->title_ru }} - смотрите все серии бесплатно!
+        {{ $video->title_ru }} - смотрите бесплатно!
     </div>
     <div class="player-controls ">
         <p>В русской озвучке от:</p>
@@ -19,7 +19,8 @@
                     @foreach($voice as $v)
                         <button
                             onclick="selectSeria('{{ route('stream', $v->pivot->id) }}', this, {{ $v->pivot->ser_number }})"
-                            class="player-controls-button ">Серия {{ $v->pivot->ser_number }}
+                            data-num="{{ $v->pivot->ser_number }}"
+                            class="player-controls-button">Серия {{ $v->pivot->ser_number }}
                         </button>
                     @endforeach
                 </div>
@@ -31,9 +32,22 @@
 </div>
 
 <script>
+    function selectVoice(obj)
+    {
+        let currentVoice = document.getElementById('voices').getElementsByClassName('selected')[0]; //выбраная озвучка в момент нажатия
+        let beforeVoice = currentVoice.getAttribute('data-voice');//название озвучки
+        currentVoice.classList.remove('selected');
+        obj.classList.add('selected');//добавить выделение нажатой озвучке
+
+
+        document.getElementById(beforeVoice).style.display = 'none';
+        document.getElementById(obj.getAttribute('data-voice')).style.display = 'block';
+        document.getElementById(obj.getAttribute('data-voice')).firstElementChild.click();
+    }
+
     function selectSeria(seriesPath, obj, serNum)
     {
-        let currentSeries = document.getElementById('series').getElementsByClassName('selected');
+        let currentSeries = document.getElementById('series').getElementsByClassName('selected');//текущая серия
         if (currentSeries.item(0) !== null) {
             currentSeries[0].classList.remove('selected');
         }
@@ -43,37 +57,56 @@
         player.setAttribute('src', seriesPath);
 
 
+        //сохраняет последнюю нажатую серию
         let currentVoice = document.getElementById('voices').getElementsByClassName('selected')[0];
         localStorage.setItem('rzk-' + {{ $video->id }}, JSON.stringify({
-            voice: currentVoice.getAttribute('data-voice'),
-            seria: serNum
+            v: currentVoice.getAttribute('data-voice'),
+            s: serNum
         }))
-    }
 
-    function selectVoice(obj)
-    {
-        let currentVoice = document.getElementById('voices').getElementsByClassName('selected')[0]; //выбраная озвучка в момент нажатия
-        let beforeVoice = currentVoice.getAttribute('data-voice');//название озвучки
-        currentVoice.classList.remove('selected');//убрать выделение у  текущей озвучки
-        obj.classList.add('selected');//добавить выделение нажатой озвучке
-
-
-        document.getElementById(beforeVoice).style.display = 'none';//скрыть предыдущую озвучка
-        document.getElementById(obj.getAttribute('data-voice')).style.display = 'block';//показать серии выбраной озвучки
-        document.getElementById(obj.getAttribute('data-voice')).firstElementChild.click();//выбрать первую серию выбран. озвучки
+        //для показа после перезагрузки
+        let storage = JSON.parse(localStorage.getItem('rzk-' + {{ $video->id }}))//последняя вкл серия
+        if(storage) {
+            let time = JSON.parse(localStorage.getItem('stopon-' + {{ $video->id }} + '-' + storage.v + '-' + storage.s))//если есть время у последней вкл серии
+            if(time) {
+                player.currentTime = Math.round(time.time)
+            }
+        }
     }
 
     function setSeria()
     {
-        let storage = JSON.parse(localStorage.getItem('rzk-' + {{ $video->id }}))
+        let storage = JSON.parse(localStorage.getItem('rzk-' + {{ $video->id }}))//последняя вкл серия
+        if(storage) {
+            document.getElementById('voices').querySelector('button[data-voice="' + storage.v + '"]').click();//выбрать озвучку
+            document.getElementById(storage.v).getElementsByTagName('button')[storage.s - 1].click()//выбрать серию
 
-        if (storage !== null) {
-            document.getElementById('voices').querySelector('button[data-voice="' + storage.voice + '"]').click();//выбрать озвучку
-            document.getElementById(storage.voice).getElementsByTagName('button')[storage.seria - 1].click()//выбрать серию
+            let time = JSON.parse(localStorage.getItem('stopon-' + {{ $video->id }} + '-' + storage.v + '-' + storage.s))//если есть время у последней вкл серии
+
+            if(time) {
+                document.getElementsByTagName('video')[0].currentTime = Math.round(time.time)//задать его плееру
+            }
+
         } else {
             document.getElementById('series').firstElementChild.firstElementChild.click();
         }
     }
 
     document.addEventListener("DOMContentLoaded", setSeria);
+
+    //сохраняет время
+    let player = document.getElementsByTagName('video')[0];
+    player.addEventListener('playing', function () {
+        player.addEventListener('timeupdate', function () {
+            let s = document.getElementById('series').getElementsByClassName('selected')[0];
+            let v = document.getElementById('voices').getElementsByClassName('selected')[0];
+            if(player.currentTime > 10) {
+                localStorage.setItem('stopon-' + {{ $video->id }} + '-' + v.getAttribute('data-voice') + '-' + s.getAttribute('data-num'), JSON.stringify({
+                    time: player.currentTime
+                }))
+            }
+        });
+    })
+
+
 </script>

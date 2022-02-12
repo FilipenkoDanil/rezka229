@@ -19,7 +19,7 @@
             $path = Storage::path($v->voices->first()->pivot->path);
             $path = str_replace('/', '\\', $path);
 
-            Log::info($path);
+
             VideoStreamer::streamFile($path);
         }
     }

@@ -10,6 +10,7 @@
             </div>
         @elseauth
             <div class="sign">
+                <a href="{{ route('home') }}">Мои закладки</a>
                 <a href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">Выйти</a>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

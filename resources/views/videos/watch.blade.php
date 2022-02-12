@@ -64,8 +64,16 @@
 
         <div class="film-actions">
             <div class="review"><a href="#comments">Отзывы ({{ count($video->comments) }})</a></div>
-            <div class="mark">Добавить в закладки</div>
-            <div class="watched">Просмотрено</div>
+            @if(!$video->inMark($video))
+                <div class="mark" onclick="event.preventDefault();
+                                                     document.getElementById('addMark').submit();">Добавить в закладки</div>
+                <form id="addMark" action="{{ route('addMark') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="video_id" value="{{ $video->id }}">
+                </form>
+            @else
+                <div class="mark" onclick="window.location.href = '{{ route('home') }}'">В закладках</div>
+            @endif
         </div>
 
         @if(count($video->parts) > 0)

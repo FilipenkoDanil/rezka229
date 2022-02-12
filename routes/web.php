@@ -14,7 +14,7 @@
     */
     Auth::routes();
 
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/home', [App\Http\Controllers\AccountController::class, 'marks'])->name('home')->middleware('auth');
     Route::get('/search', [\App\Http\Controllers\SearchController::class, 'searchTitle'])->name('searchTitle');
 
     Route::get('/', [\App\Http\Controllers\VideoController::class, 'index'])->name('index');
@@ -23,8 +23,11 @@
     Route::get('/{type}/{genre?}', [\App\Http\Controllers\SearchController::class, 'videosBy'])->name('videosBy');
 
 
-    Route::post('/addcomment', [\App\Http\Controllers\VideoController::class, 'addComment'])->name('addComment');
-    Route::post('/reportcomment', [\App\Http\Controllers\VideoController::class, 'reportComment'])->name('reportComment');
+    Route::post('/addcomment', [\App\Http\Controllers\VideoController::class, 'addComment'])->name('addComment')->middleware('auth');
+    Route::post('/reportcomment', [\App\Http\Controllers\VideoController::class, 'reportComment'])->name('reportComment')->middleware('auth');
+    Route::post('/addmark', [\App\Http\Controllers\AccountController::class, 'addMark'])->name('addMark')->middleware('auth');
+    Route::post('/deletemark', [\App\Http\Controllers\AccountController::class, 'deleteMark'])->name('deleteMark')->middleware('auth');
+    Route::post('/changemark', [\App\Http\Controllers\AccountController::class, 'changeMark'])->name('changeMark')->middleware('auth');
 
     Route::get('/play/videofile/{id}', [\App\Http\Controllers\VideoPlayerController::class, 'play'])->name('stream');
 

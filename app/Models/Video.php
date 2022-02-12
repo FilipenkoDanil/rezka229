@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Video extends Model
 {
@@ -44,6 +45,17 @@ class Video extends Model
     public function voices()
     {
         return $this->belongsToMany(Voice::class)->withPivot('id', 'ser_number', 'path');
+    }
+
+    public function marks()
+    {
+        return $this->belongsToMany(Mark::class);
+    }
+
+    public function scopeInMark($query, $video)
+    {
+
+        return Mark::where('video_id', $video->id)->where('user_id', Auth::id())->exists();
     }
 
     public function scopeOfType($query, $type)

@@ -685,12 +685,12 @@ textarea:focus {
 }
 
 .tdnum {
-    width: 5%;
+    width: 4%;
     text-align: center;
 }
 
 .tdtitle {
-    width: 78%;
+    width: 75%;
 }
 
 .tdtitle a {
@@ -702,6 +702,10 @@ textarea:focus {
     text-decoration: underline;
 }
 
+.tddate form {
+    display: inline-block;
+}
+
 .tb-cell {
     padding: 15px;
     border: 1px solid #dedede;
@@ -709,10 +713,21 @@ textarea:focus {
 
 .watched-table tr:hover td {
     background-color: white;
+    opacity: 1;
 }
 
 .watched-table tr:hover .deletebutton {
-    opacity: 100;
+    opacity: 1;
+}
+.watched-table tr:hover .watchedbutton {
+    opacity: 1;
+}
+.watched-item {
+    opacity: 0.3;
+}
+
+.watched-item:hover {
+    opacity: 1;
 }
 
 .deletebutton {
@@ -730,6 +745,20 @@ textarea:focus {
     cursor: pointer;
 }
 
+.watchedbutton {
+    border: none;
+    border-radius: 50%;
+    background-color: #857b7b;
+    color: white;
+    margin-left: 10px;
+    padding: 5px 10px;
+    opacity: 0;
+}
+
+.watchedbutton:hover {
+    background-color: rgb(110, 110, 110);
+    cursor: pointer;
+}
 
 /* */
 
