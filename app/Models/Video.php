@@ -71,4 +71,18 @@ class Video extends Model
             return $q->where('slug', '=', $genre);
         });
     }
+
+    public function scopeOfCountry($query, $country)
+    {
+        return $query->whereHas('countries', function ($q) use ($country) {
+            return $q->where('country', '=', $country);
+        });
+    }
+
+    public function scopeOfYear($query, $year)
+    {
+        return $query->whereHas('year', function ($q) use ($year) {
+            return $q->where('year', '=', $year);
+        });
+    }
 }

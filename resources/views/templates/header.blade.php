@@ -26,11 +26,11 @@
                 <ul>
                     @foreach($typesHeader as $type)
                         <li>
-                            <a href="{{ route('videosBy', $type->slug) }}">{{ $type->type_plural }}<img src="{{ asset('img/arrow.svg') }}"></a>
+                            <a href="{{ route('videosByType', $type->slug) }}">{{ $type->type_plural }}<img src="{{ asset('img/arrow.svg') }}"></a>
                             <div class="navitems">
                                 <ul>
                                     @foreach($type->genres->sortByDesc('genre') as $genreVideo)
-                                        <li><a href="{{ route('videosBy', [$type->slug, $genreVideo->genre->slug])  }}">{{ $genreVideo->genre->genre }}</a></li>
+                                        <li><a href="{{ route('videosByGenre', [$type->slug, $genreVideo->genre->slug])  }}">{{ $genreVideo->genre->genre }}</a></li>
                                     @endforeach
                                 </ul>
                             </div>

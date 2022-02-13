@@ -27,13 +27,13 @@
                     <tr>
                         <td class="firstcol">Дата выхода:</td>
                         <td class="secondcol">{{ \Jenssegers\Date\Date::parse($video->date)->format('j F') }} <a
-                                href="#">{{ $video->year->year }} года</a></td>
+                                href="{{ route('videosByYear', $video->year->year) }}">{{ $video->year->year }} года</a></td>
                     </tr>
                     <tr>
                         <td class="firstcol">Страна:</td>
                         <td class="secondcol">
                             @foreach($video->countries as $country)
-                                <a href="#">{{ $country->country }}</a>@if(!$loop->last),@endif
+                                <a href="{{ route('videosByCountry', $country->country) }}">{{ $country->country }}</a>@if(!$loop->last),@endif
                             @endforeach
                         </td>
                     </tr>
@@ -41,7 +41,7 @@
                         <td class="firstcol">Жанр:</td>
                         <td class="secondcol">
                             @foreach($video->genres as $genre)
-                                <a href="#">{{ $genre->genre }}</a>@if(!$loop->last),@endif
+                                <a href="{{ route('videosByGenre', [$video->type->slug,$genre->slug]) }}">{{ $genre->genre }}</a>@if(!$loop->last),@endif
                             @endforeach
                         </td>
                     </tr>

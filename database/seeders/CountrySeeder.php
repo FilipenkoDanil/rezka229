@@ -15,7 +15,7 @@
         public function run()
         {
             $countries = file_get_contents('countries.txt', true);
-            $countries = explode(',', $countries);
+            $countries = explode(', ', $countries);
 
             foreach ($countries as $country) {
                 DB::table('countries')->insert(

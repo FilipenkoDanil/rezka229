@@ -19,8 +19,11 @@
 
     Route::get('/', [\App\Http\Controllers\VideoController::class, 'index'])->name('index');
     Route::get('/{type}/watch/{slug}', [\App\Http\Controllers\VideoController::class, 'watch'])->name('watch');
-    Route::get('/{type}', [\App\Http\Controllers\SearchController::class, 'videosBy'])->name('videosBy');
-    Route::get('/{type}/{genre?}', [\App\Http\Controllers\SearchController::class, 'videosBy'])->name('videosBy');
+    Route::get('/country/{country}', [\App\Http\Controllers\SearchController::class, 'videosByCountry'])->name('videosByCountry');
+    Route::get('/year/{year}', [\App\Http\Controllers\SearchController::class, 'videosByYear'])->name('videosByYear');
+    Route::get('/{type}', [\App\Http\Controllers\SearchController::class, 'videosByType'])->name('videosByType');
+    Route::get('/{type}/{genre?}', [\App\Http\Controllers\SearchController::class, 'videosByGenre'])->name('videosByGenre');
+
 
 
     Route::post('/addcomment', [\App\Http\Controllers\VideoController::class, 'addComment'])->name('addComment')->middleware('auth');
