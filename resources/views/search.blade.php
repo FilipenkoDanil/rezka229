@@ -31,18 +31,5 @@
         @endforeach
     </div>
 
-    <div class="pagination">
-        <ul>
-            <a href="#" class="button">&lt;</a>
-
-            <li><a href="#">1</a></li>
-            <li class="active-pagin"><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li><a href="#">5</a></li>
-            <li><a href="#">6</a></li>
-
-            <a href="#" class="button">&gt;</a>
-        </ul>
-    </div>
+    {{ $videos->appends(request()->query())->links('paginate.pagination') }}
 @endsection

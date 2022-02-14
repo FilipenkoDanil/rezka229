@@ -14,7 +14,7 @@
     {
         public function index()
         {
-            $videos = Video::with('type', 'year')->get();
+            $videos = Video::with('type', 'year')->paginate(1);
             return view('videos.index', compact('videos'));
         }
 
