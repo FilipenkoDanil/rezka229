@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class VideoVoice extends Model
 {
     use HasFactory;
+
+    protected $table = 'video_voice';
+
+    protected $guarded = [];
 }

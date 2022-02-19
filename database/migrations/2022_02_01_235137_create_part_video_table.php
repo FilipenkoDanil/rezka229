@@ -15,8 +15,8 @@ class CreatePartVideoTable extends Migration
     {
         Schema::create('part_video', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('part_id')->constrained();
-            $table->foreignId('video_id')->constrained();
+            $table->foreignId('part_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('video_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }

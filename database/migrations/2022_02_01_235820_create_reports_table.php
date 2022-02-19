@@ -15,8 +15,9 @@ class CreateReportsTable extends Migration
     {
         Schema::create('reports', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('comment_id')->constrained();
+            $table->foreignId('comment_id')->constrained()->cascadeOnDelete();
             $table->foreignId('reason_id')->constrained();
+            $table->boolean('is_checked')->default(0);
             $table->timestamps();
         });
     }

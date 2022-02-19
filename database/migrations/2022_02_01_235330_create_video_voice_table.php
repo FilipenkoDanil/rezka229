@@ -15,8 +15,8 @@ class CreateVideoVoiceTable extends Migration
     {
         Schema::create('video_voice', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('voice_id')->constrained();
-            $table->foreignId('video_id')->constrained();
+            $table->foreignId('voice_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('video_id')->constrained()->cascadeOnDelete();
             $table->unsignedSmallInteger('ser_number');
             $table->string('path');
             $table->timestamps();

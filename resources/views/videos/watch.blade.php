@@ -13,7 +13,7 @@
 
         <div class="film-info">
             <div class="poster">
-                <img src="{{ $video->poster }}">
+                <img src="{{ Storage::url($video->poster) }}">
             </div>
 
             <div class="film-table">
@@ -108,7 +108,7 @@
                     <div class="main-item sm">
                         <a href="{{ route('watch', [$recVideo->type->slug, $recVideo->slug]) }}">
                             <div class="item-header sm">
-                                <img src="{{ $recVideo->poster }}">
+                                <img src="{{ Storage::url($recVideo->poster) }}">
                             </div>
                             <div class="item-footer">
                                 <span>{{ $recVideo->title_ru }}</span>

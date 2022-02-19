@@ -16,7 +16,7 @@ class CreateCountryVideoTable extends Migration
         Schema::create('country_video', function (Blueprint $table) {
             $table->id();
             $table->foreignId('country_id')->constrained();
-            $table->foreignId('video_id')->constrained();
+            $table->foreignId('video_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }

@@ -23,14 +23,15 @@ class CreateVideosTable extends Migration
             $table->foreignId('year_id')->constrained();
             $table->foreignId('type_id')->constrained();
             $table->integer('views')->default(0);
-            $table->string('slug')->unique();
+            $table->string('slug')->nullable()->unique();
             $table->string('poster');
             $table->integer('runtime_min');
 
             $table->string('imdb_id')->unique();
-            $table->string('imdb_rating');
-            $table->integer('imdb_votes');
+            $table->string('imdb_rating')->nullable();
+            $table->integer('imdb_votes')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

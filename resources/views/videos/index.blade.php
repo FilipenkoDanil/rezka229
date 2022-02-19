@@ -17,7 +17,7 @@
             <div class="main-item">
                 <a href="{{ route('watch', [$video->type->slug, $video->slug]) }}">
                     <div class="item-header">
-                        <img src="{{ $video->poster }}">
+                        <img src="{{ Storage::url($video->poster) }}">
                     </div>
                     <div class="item-footer">
                         <span>{{ $video->title_ru }}</span>

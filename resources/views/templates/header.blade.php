@@ -10,6 +10,9 @@
             </div>
         @elseauth
             <div class="sign">
+                @role('admin')
+                    <a href="{{ route('homeAdmin') }}">Админ-панель</a>
+                @endrole
                 <a href="{{ route('home') }}">Мои закладки</a>
                 <a href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">Выйти</a>

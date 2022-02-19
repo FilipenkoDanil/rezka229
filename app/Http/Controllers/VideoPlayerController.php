@@ -3,6 +3,7 @@
     namespace App\Http\Controllers;
 
     use App\Models\Video;
+    use App\Models\VideoVoice;
     use Illuminate\Http\Request;
     use Illuminate\Support\Facades\Log;
     use Illuminate\Support\Facades\Storage;
@@ -12,13 +13,11 @@
     {
         public function play(Request $request)
         {
-            $v = Video::with(['voices' => function ($q) use ($request) {
-                $q->where('video_voice.id', $request->id);
-            }])->firstOrFail();
+            $v = VideoVoice::find($request->id);
 
-            $path = Storage::path($v->voices->first()->pivot->path);
+            $path = Storage::disk('public')->path($v->path);
             $path = str_replace('/', '\\', $path);
-
+            Log::info($path);
 
             VideoStreamer::streamFile($path);
         }

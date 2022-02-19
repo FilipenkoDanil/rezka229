@@ -14,7 +14,7 @@ class AddTypePluralToTypesTable extends Migration
     public function up()
     {
         Schema::table('types', function (Blueprint $table) {
-            $table->string('type_plural')->after('video_type');
+            $table->string('type_plural')->after('video_type')->unique();
         });
     }
 

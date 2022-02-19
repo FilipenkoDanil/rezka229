@@ -15,8 +15,8 @@ class CreateGenreVideoTable extends Migration
     {
         Schema::create('genre_video', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('genre_id')->constrained();
-            $table->foreignId('video_id')->constrained();
+            $table->foreignId('genre_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('video_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }
