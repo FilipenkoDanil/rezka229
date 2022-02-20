@@ -1,14 +1,13 @@
 @extends('layouts.standart')
 
-@section('title', 'Index')
+@section('title', 'Главная страница')
 
 @section('content')
 
     <div class="main-filter">
         <ul>
             <li class="active"><a href="#">Последние поступления</a></li>
-            <li><a href="#">Популярные</a></li>
-            <li><a href="#">В ожидании</a></li>
+            <li><a href="{{ route('videosByPopularity') }}">Популярные</a></li>
         </ul>
     </div>
 

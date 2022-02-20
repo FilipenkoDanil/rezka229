@@ -14,10 +14,7 @@
         public function play(Request $request)
         {
             $v = VideoVoice::find($request->id);
-
-            $path = Storage::disk('public')->path($v->path);
-            $path = str_replace('/', '\\', $path);
-            Log::info($path);
+            $path = '../storage/app/public/' . $v->path;
 
             VideoStreamer::streamFile($path);
         }

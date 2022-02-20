@@ -48,7 +48,7 @@ class Video extends Model
 
     public function voices()
     {
-        return $this->belongsToMany(Voice::class)->withPivot('id', 'ser_number', 'path');
+        return $this->belongsToMany(Voice::class)->withPivot('id', 'ser_number', 'path')->orderByPivot('ser_number');
     }
 
     public function marks()

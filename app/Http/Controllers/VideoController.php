@@ -2,6 +2,7 @@
 
     namespace App\Http\Controllers;
 
+    use App\Http\Requests\CommentRequest;
     use App\Models\Comment;
     use App\Models\Reason;
     use App\Models\Report;
@@ -14,20 +15,28 @@
     {
         public function index()
         {
-            $videos = Video::with('type', 'year')->paginate(10);
+            $videos = Video::with('type', 'year')->orderByDesc('created_at')->paginate(10);
             return view('videos.index', compact('videos'));
         }
 
         public function watch($type, $slug)
         {
             $video = Video::with('parts', 'comments.user', 'year', 'type')->where('slug', $slug)->first();
-            $recVideos = Video::with('year', 'type', 'genres')->where('type_id', $video->type_id)->inRandomOrder()->take(2)->get();//take 5
-            $reasonsReport = Reason::all();
 
-            return view('videos.watch', compact(['video', 'recVideos', 'reasonsReport']));
+            if($video) {
+                $recVideos = Video::with('year', 'type', 'genres')->where('type_id', $video->type_id)->inRandomOrder()->take(5)->get();
+                $reasonsReport = Reason::all();
+
+                $video->views += 1;
+                $video->save();
+
+                return view('videos.watch', compact(['video', 'recVideos', 'reasonsReport']));
+            }
+
+            return redirect()->route('index');
         }
 
-        public function addComment(Request $request)
+        public function addComment(CommentRequest $request)
         {
             Comment::create([
                 'user_id' => Auth::id(),

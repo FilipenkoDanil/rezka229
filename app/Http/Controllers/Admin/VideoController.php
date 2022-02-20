@@ -186,6 +186,7 @@
 
 
             if($videoVoice) {
+                Storage::disk('public')->delete($videoVoice->path);
                 $videoVoice->path = $newPath;
                 $videoVoice->save();
             } else {

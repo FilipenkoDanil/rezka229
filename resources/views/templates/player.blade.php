@@ -32,6 +32,9 @@
 </div>
 
 <script>
+    var s;
+    var v;
+
     function selectVoice(obj)//переключатель озвучки
     {
         let currentVoice = document.getElementById('voices').getElementsByClassName('selected')[0]; //выбраная озвучка в момент нажатия
@@ -43,12 +46,13 @@
         document.getElementById(beforeVoice).style.display = 'none';
         document.getElementById(obj.getAttribute('data-voice')).style.display = 'block';
 
+
     }
 
     function selectSeria(seriesPath, obj, serNum)//переключатель серий
     {
         var video = document.getElementsByTagName('video')[0]
-        video.src = ''
+        video.src = seriesPath;
 
         let currentSeries = document.getElementById('series').getElementsByClassName('selected');//текущая серия
         if (currentSeries.item(0) !== null) {
@@ -56,40 +60,20 @@
         }
 
         obj.classList.add('selected');
-        saveLastPick(serNum)
-        test(seriesPath)
+        saveLastPick(serNum);
 
-
-    }
-
-    function test(seriesPath)
-    {
-        var video = document.getElementsByTagName('video')[0]
-
-        var url = seriesPath
-
-        var xhr = new XMLHttpRequest();
-        xhr.open("GET", url, true);
-        xhr.responseType = "arraybuffer";
-
-        xhr.onload = function (oEvent) {
-
-            var blob = new Blob([oEvent.target.response], {type: "application/octet-stream"});
-
-            video.src = URL.createObjectURL(blob);
-
-            let storage = JSON.parse(localStorage.getItem('rzk-' + {{ $video->id }}))//последняя вкл серия
-            if (storage) {
-                let time = JSON.parse(localStorage.getItem('stopon-' + {{ $video->id }} +'-' + storage.v + '-' + storage.s))//если есть время у последней вкл серии
-                if (time) {
-                    video.currentTime = Math.round(time.time)
-                }
+        s = document.getElementById('series').getElementsByClassName('selected')[0];
+        v = document.getElementById('voices').getElementsByClassName('selected')[0];
+        let storage = JSON.parse(localStorage.getItem('rzk-' + {{ $video->id }}))//последняя вкл серия
+        if (storage) {
+            let time = JSON.parse(localStorage.getItem('stopon-' + {{ $video->id }} +'-' + storage.v + '-' + storage.s))//если есть время у последней вкл серии
+            if (time) {
+                video.currentTime = Math.round(time.time)
             }
+        }
 
-        };
-
-        xhr.send();
     }
+
 
     function saveLastPick(serNum)//сохраняет последнюю вкл. серию
     {
@@ -124,8 +108,7 @@
     let player = document.getElementsByTagName('video')[0];
     player.addEventListener('playing', function () {
         player.addEventListener('timeupdate', function () {
-            let s = document.getElementById('series').getElementsByClassName('selected')[0];
-            let v = document.getElementById('voices').getElementsByClassName('selected')[0];
+
             if (player.currentTime > 10) {
                 localStorage.setItem('stopon-' + {{ $video->id }} +'-' + v.getAttribute('data-voice') + '-' + s.getAttribute('data-num'), JSON.stringify({
                     time: player.currentTime

@@ -8,36 +8,68 @@
 
     class SearchController extends Controller
     {
+        private $paginate = 10;
+
         public function videosByType($type)
         {
-            $videos = Video::ofType($type)->paginate(1);
+            $videos = Video::ofType($type)->paginate($this->paginate);
 
-            return view('search', compact('videos'));
+            if ($videos->total()) {
+                return view('search', compact('videos'));
+            }
+
+            return redirect()->back();
         }
 
         public function videosByGenre($type, $genre)
         {
-            $videos = Video::ofType($type)->ofGenre($genre)->paginate(1);
+            $videos = Video::ofType($type)->ofGenre($genre)->paginate($this->paginate);
             $genre = Genre::where('slug', $genre)->first();
 
-            return view('search', compact(['videos', 'genre']));
+            if($videos->total() > 0) {
+                return view('search', compact(['videos', 'genre']));
+            }
+
+            return redirect()->back();
         }
 
         public function videosByCountry($country)
         {
-            $videos = Video::ofCountry($country)->paginate(1);
-            return view('search', compact(['videos', 'country']));
+            $videos = Video::ofCountry($country)->paginate($this->paginate);
+
+            if($videos->total() > 0) {
+                return view('search', compact(['videos', 'country']));
+
+            }
+
+            return redirect()->back();
         }
 
         public function videosByYear($year)
         {
-            $videos = Video::ofYear($year)->paginate(1);
-            return view('search', compact(['videos', 'year']));
+            $videos = Video::ofYear($year)->paginate($this->paginate);
+
+            if ($videos->total() > 0) {
+                return view('search', compact(['videos', 'year']));
+            }
+
+            return redirect()->back();
+        }
+
+        public function videosByPopularity()
+        {
+            $videos = Video::orderByDesc('views')->paginate($this->paginate);
+
+            if ($videos->total() > 0) {
+                return view('search', compact('videos'));
+            }
+
+            return redirect()->route('index');
         }
 
         public function searchTitle(Request $request)
         {
-            $videos = Video::where('title_ru', 'LIKE', '%'. $request->s . '%')->paginate(1);
+            $videos = Video::where('title_ru', 'LIKE', '%' . $request->s . '%')->paginate($this->paginate);
 
             return view('search', ['videos' => $videos, 's' => $request->s]);
         }

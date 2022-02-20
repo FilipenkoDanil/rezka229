@@ -44,6 +44,7 @@
     Route::get('/{type}/watch/{slug}', [\App\Http\Controllers\VideoController::class, 'watch'])->name('watch');
     Route::get('/country/{country}', [\App\Http\Controllers\SearchController::class, 'videosByCountry'])->name('videosByCountry');
     Route::get('/year/{year}', [\App\Http\Controllers\SearchController::class, 'videosByYear'])->name('videosByYear');
+    Route::get('/popular', [\App\Http\Controllers\SearchController::class, 'videosByPopularity'])->name('videosByPopularity');
     Route::get('/{type}', [\App\Http\Controllers\SearchController::class, 'videosByType'])->name('videosByType');
     Route::get('/{type}/{genre?}', [\App\Http\Controllers\SearchController::class, 'videosByGenre'])->name('videosByGenre');
 

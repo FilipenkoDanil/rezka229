@@ -10,12 +10,14 @@
         <h1>Смотреть все фильмы и сериалы в HD за {{ $year }} год</h1>
     @elseif(request()->route()->getName() == 'videosByCountry')
         <h1>Смотреть фильмы и сериалы сделаные в {{ $country }}</h1>
+    @elseif(request()->route()->getName() == 'videosByPopularity')
+        <h1>Смотреть популярные фильмы и сериалы</h1>
     @else
         <h1>Результаты поиска «{{ $s }}»</h1>
     @endif
     <br>
     <div class="itemcontainer">
-        @foreach($videos as $video)
+        @forelse($videos as $video)
             <div class="main-item">
                 <a href="{{ route('watch', [$video->type->slug, $video->slug]) }}">
                     <div class="item-header">
@@ -28,7 +30,9 @@
                     </div>
                 </a>
             </div>
-        @endforeach
+        @empty
+            <h3>По запросу: «{{ $s }}» ничего не найдено</h3>
+        @endforelse
     </div>
 
     {{ $videos->appends(request()->query())->links('paginate.pagination') }}

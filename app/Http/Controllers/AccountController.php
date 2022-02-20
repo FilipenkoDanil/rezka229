@@ -10,7 +10,10 @@
     {
         public function marks()
         {
-            $marks = Mark::where('user_id', Auth::id())->orderByDesc('created_at')->get();
+            $marks = Mark::where('user_id', Auth::id())->whereHas('video', function ($q) {
+                return $q->where('deleted_at', null);
+            })->orderByDesc('created_at')->get();
+
             return view('home', compact('marks'));
         }
 

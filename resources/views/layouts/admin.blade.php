@@ -14,14 +14,10 @@
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Tempusdominus Bootstrap 4 -->
     <link rel="stylesheet" href="/adm/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
-    <!-- iCheck -->
-    <link rel="stylesheet" href="/adm/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
     <!-- JQVMap -->
     <link rel="stylesheet" href="/adm/plugins/jqvmap/jqvmap.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="/adm/dist/css/adminlte.min.css">
-    <!-- overlayScrollbars -->
-    <link rel="stylesheet" href="/adm/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
     <!-- Daterange picker -->
     <link rel="stylesheet" href="/adm/plugins/daterangepicker/daterangepicker.css">
     <!-- summernote -->
@@ -135,8 +131,6 @@
 </script>
 <!-- Bootstrap 4 -->
 <script src="/adm/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- ChartJS -->
-<script src="/adm/plugins/chart.js/Chart.min.js"></script>
 <!-- Sparkline -->
 <script src="/adm/plugins/sparklines/sparkline.js"></script>
 <!-- JQVMap -->
@@ -151,10 +145,6 @@
 <script src="/adm/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
 <!-- Tempusdominus Bootstrap 4 -->
 <script src="/adm/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
-<!-- Summernote -->
-<script src="/adm/plugins/summernote/summernote-bs4.min.js"></script>
-<!-- overlayScrollbars -->
-<script src="/adm/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 <!-- AdminLTE App -->
 <script src="/adm/dist/js/adminlte.js"></script>
 <script src="/adm/dist/js/pages/dashboard.js"></script>

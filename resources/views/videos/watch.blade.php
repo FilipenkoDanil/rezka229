@@ -27,13 +27,15 @@
                     <tr>
                         <td class="firstcol">Дата выхода:</td>
                         <td class="secondcol">{{ \Jenssegers\Date\Date::parse($video->date)->format('j F') }} <a
-                                href="{{ route('videosByYear', $video->year->year) }}">{{ $video->year->year }} года</a></td>
+                                href="{{ route('videosByYear', $video->year->year) }}">{{ $video->year->year }} года</a>
+                        </td>
                     </tr>
                     <tr>
                         <td class="firstcol">Страна:</td>
                         <td class="secondcol">
                             @foreach($video->countries as $country)
-                                <a href="{{ route('videosByCountry', $country->country) }}">{{ $country->country }}</a>@if(!$loop->last),@endif
+                                <a href="{{ route('videosByCountry', $country->country) }}">{{ $country->country }}</a>@if(!$loop->last)
+                                    ,@endif
                             @endforeach
                         </td>
                     </tr>
@@ -41,7 +43,8 @@
                         <td class="firstcol">Жанр:</td>
                         <td class="secondcol">
                             @foreach($video->genres as $genre)
-                                <a href="{{ route('videosByGenre', [$video->type->slug,$genre->slug]) }}">{{ $genre->genre }}</a>@if(!$loop->last),@endif
+                                <a href="{{ route('videosByGenre', [$video->type->slug,$genre->slug]) }}">{{ $genre->genre }}</a>@if(!$loop->last)
+                                    ,@endif
                             @endforeach
                         </td>
                     </tr>
@@ -66,7 +69,8 @@
             <div class="review"><a href="#comments">Отзывы ({{ count($video->comments) }})</a></div>
             @if(!$video->inMark($video))
                 <div class="mark" onclick="event.preventDefault();
-                                                     document.getElementById('addMark').submit();">Добавить в закладки</div>
+                                                     document.getElementById('addMark').submit();">Добавить в закладки
+                </div>
                 <form id="addMark" action="{{ route('addMark') }}" method="POST">
                     @csrf
                     <input type="hidden" name="video_id" value="{{ $video->id }}">
@@ -128,8 +132,13 @@
         <div class="comment-form">
             <form method="POST" action="{{ route('addComment') }}">
                 @csrf
-                <textarea placeholder="Оставить отзыв..." class="addcoment" name="comment"></textarea>
+                <textarea placeholder="Оставить отзыв..." class="addcoment" name="comment" required>{{ old('comment') }}</textarea>
                 <input type="hidden" name="video_id" value="{{ $video->id }}">
+                @if($errors->any())
+                    @foreach($errors->all() as $error)
+                        <span class="error-message">{{ $error }}</span>
+                    @endforeach
+                @endif
                 <button type="submit" class="submit">Добавить</button>
             </form>
         </div>

@@ -561,6 +561,13 @@ video {
     margin: 20px 0;
 }
 
+.error-message {
+    display: block;
+    color: red;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
 textarea {
     width: 97%;
     height: 20px;
@@ -884,4 +891,15 @@ textarea:focus {
 
 .auth button:active {
     background-color: #358db5;
+}
+
+
+@media (max-width: 570px) {
+    .wrapper {
+        width: 100%;
+    }
+
+    .filmcontainer {
+        width: 100%;
+    }
 }
