@@ -4,9 +4,14 @@
 
 @section('content')
     <div>
+        <div class="main-filter">
+            <ul>
+                <li><a href="{{ route('home') }}">Настройки профиля</a></li>
+                <li class="active"><a href="{{ route('marks') }}">Закладки</a></li>
+            </ul>
+        </div>
+        <br>
         @if($marks->count() > 0)
-            <h2>Продолжить просмотр</h2>
-            <br>
             <table class="watched-table">
                 <tr>
                     <th class="tb-cell">#</th>

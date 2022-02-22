@@ -5,9 +5,35 @@
     use App\Models\Mark;
     use Illuminate\Http\Request;
     use Illuminate\Support\Facades\Auth;
+    use Illuminate\Support\Facades\Storage;
 
     class AccountController extends Controller
     {
+        public function index()
+        {
+            return view('account.settings');
+        }
+
+        public function setAvatar(Request $request)
+        {
+            if ($request->ava_delete) {
+                if (Auth::user()->avatar !== 'avatars/default.jpg') {
+                    Storage::disk('public')->delete(Auth::user()->avatar);
+                    Auth::user()->avatar = 'avatars/default.jpg';
+                    Auth::user()->save();
+
+                }
+            }
+
+            if ($request->hasFile('avatar')) {
+                $path = $request->file('avatar')->store('avatars', 'public');
+                Auth::user()->avatar = $path;
+                Auth::user()->save();
+            }
+
+            return redirect()->route('home');
+        }
+
         public function marks()
         {
             $marks = Mark::where('user_id', Auth::id())->whereHas('video', function ($q) {
@@ -32,7 +58,7 @@
         public function deleteMark(Request $request)
         {
             $mark = Mark::markVideo($request->video_id)->first();
-            if($mark) {
+            if ($mark) {
                 $mark->delete();
             }
 

@@ -4,6 +4,9 @@
 
 @section('content')
 
+    <h1>Смотреть в HD онлайн</h1>
+    <br>
+
     <div class="main-filter">
         <ul>
             <li class="active"><a href="#">Последние поступления</a></li>

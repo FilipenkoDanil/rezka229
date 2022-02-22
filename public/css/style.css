@@ -635,6 +635,7 @@ textarea:focus {
 .avatar {
     border-radius: 50%;
     width: 60px;
+    height: 60px;
 }
 
 .cominfo {
@@ -893,6 +894,17 @@ textarea:focus {
     background-color: #358db5;
 }
 
+.profile-control {
+    display: block;
+    margin-top: 5px;
+    border-radius: 4px;
+    padding: 7px;
+    border: 1px solid gray;
+}
+
+.profile-group {
+    margin-bottom: 10px;
+}
 
 @media (max-width: 570px) {
     .wrapper {

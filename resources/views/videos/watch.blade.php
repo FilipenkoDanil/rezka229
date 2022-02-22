@@ -148,7 +148,7 @@
             @foreach($video->comments as $comment)
                 <div class="comment">
                     <div class="ava">
-                        <img src="https://static.hdrezka.ac/uploads/fotos/2021/4/7/fd089c94fe21emd62i40y.jpg"
+                        <img src="{{ Storage::disk('public')->url($comment->user->avatar) }}"
                              class="avatar">
                     </div>
                     <div class="cominfo">

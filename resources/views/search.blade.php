@@ -11,7 +11,14 @@
     @elseif(request()->route()->getName() == 'videosByCountry')
         <h1>Смотреть фильмы и сериалы сделаные в {{ $country }}</h1>
     @elseif(request()->route()->getName() == 'videosByPopularity')
-        <h1>Смотреть популярные фильмы и сериалы</h1>
+        <h1>Смотреть в HD онлайн</h1>
+        <br>
+        <div class="main-filter">
+            <ul>
+                <li><a href="{{ route('index') }}">Последние поступления</a></li>
+                <li class="active"><a href="{{ route('videosByPopularity') }}">Популярные</a></li>
+            </ul>
+        </div>
     @else
         <h1>Результаты поиска «{{ $s }}»</h1>
     @endif

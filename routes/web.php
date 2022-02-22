@@ -18,7 +18,9 @@
     Route::get('/play/videofile/{id}', [\App\Http\Controllers\VideoPlayerController::class, 'play'])->name('stream');
 
     Route::group(['middleware' => 'auth'], function () {
-        Route::get('/home', [App\Http\Controllers\AccountController::class, 'marks'])->name('home')->middleware('auth');
+        Route::get('/marks', [App\Http\Controllers\AccountController::class, 'marks'])->name('marks');
+        Route::get('/profile', [App\Http\Controllers\AccountController::class, 'index'])->name('home');
+        Route::post('/profile/setAvatar', [App\Http\Controllers\AccountController::class, 'setAvatar'])->name('setAvatar');
         Route::post('/addcomment', [\App\Http\Controllers\VideoController::class, 'addComment'])->name('addComment');
         Route::post('/reportcomment', [\App\Http\Controllers\VideoController::class, 'reportComment'])->name('reportComment');
         Route::post('/addmark', [\App\Http\Controllers\AccountController::class, 'addMark'])->name('addMark');
