@@ -1,6 +1,6 @@
 @extends('layouts.standart')
 
-@section('title', 'Профиль')
+@section('title', 'Настройки профиля')
 
 @section('content')
     <div>
@@ -14,7 +14,7 @@
         <div class="profile-group">
             <label for="email"><b>Email</b></label>
             <br>
-            <input type="text" id="email" value="femer1123@yandex.ry" class="profile-control" disabled>
+            <input type="text" id="email" value="{{ Auth::user()->email }}" class="profile-control" disabled>
         </div>
         <form method="POST" action="{{ route('setAvatar') }}" enctype="multipart/form-data">
             @csrf
