@@ -906,6 +906,47 @@ textarea:focus {
     margin-bottom: 10px;
 }
 
+.search-items {
+    display: inline-block;
+    position: absolute;
+    width: 1000px;
+    background-color: rgb(219, 219, 219);
+}
+
+.search-items button {
+    text-align: center;
+    padding: 5px;
+    border: none;
+    width: 100%;
+    display: inline-block;
+    background-color: gray;
+    color: white;
+    cursor: pointer;
+}
+
+.item {
+    display: inline-block;
+    width: 99%;
+    padding: 10px 0px 10px 10px;
+    border-bottom: 1px solid black;
+}
+
+.item:hover {
+    background-color: #e9e9e9;
+}
+
+.item a {
+    color: #2e859e;
+    text-decoration: none;
+}
+
+.item p {
+    display: inline;
+    color: #565656;
+    font-weight: bold;
+}
+
+
 @media (max-width: 570px) {
     .wrapper {
         width: 100%;

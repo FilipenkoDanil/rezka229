@@ -69,8 +69,12 @@
 
         public function searchTitle(Request $request)
         {
-            $videos = Video::where('title_ru', 'LIKE', '%' . $request->s . '%')->paginate($this->paginate);
+            if($request->ajax()) {
+                $videos = Video::where('title_ru', 'LIKE', '%' . $request->s . '%')->orWhere('title_en', 'LIKE', '%' . $request->s . '%')->get();
+                return view('ajax.search', compact('videos'));
+            }
 
+            $videos = Video::where('title_ru', 'LIKE', '%' . $request->s . '%')->paginate($this->paginate);
             return view('search', ['videos' => $videos, 's' => $request->s]);
         }
     }
